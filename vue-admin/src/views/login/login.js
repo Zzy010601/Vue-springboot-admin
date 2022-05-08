@@ -15,6 +15,9 @@ export default {
     methods: {
         toRegister() {
             this.$router.push('/register')
+        },
+        login() {
+            this.$router.push('/layout')
         }
     }
 }

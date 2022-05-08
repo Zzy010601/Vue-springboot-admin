@@ -9,6 +9,48 @@ const routes = [
         redirect: '/login'
     },
     {
+        path: '/layout',
+        name: 'system',
+        meta: {
+            title: 'system'
+        },
+        component: () => import('../views/layout/index'),
+        children: [
+            {
+                path: '/courseManage',
+                name: 'courseManage',
+                meta: {
+                    title: '课程管理'
+                },
+                component: () => import('../views/course/courseManage/index')
+            },
+            {
+                path: '/courseBBS',
+                name: 'courseBBS',
+                meta: {
+                    title: '课程论坛'
+                },
+                component: () => import('../views/course/courseBBS/index')
+            },
+            {
+                path: '/setCourse',
+                name: 'setCourse',
+                meta: {
+                    title: '开设课程'
+                },
+                component: () => import('../views/course/setCourse/index')
+            },
+            {
+                path: '/personalInformation',
+                name: 'personalInformation',
+                meta: {
+                    title: '个人信息'
+                },
+                component: () => import('../views/personalInformation/index')
+            }
+        ]
+    },
+    {
         path: '/login',
         name: 'login',
         meta: {

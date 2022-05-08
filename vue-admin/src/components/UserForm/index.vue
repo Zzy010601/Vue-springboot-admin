@@ -26,6 +26,9 @@ export default {
     display: table;
     content: "";
 }
+h1 {
+    margin: 8px;
+}
 .box-card {
     padding: 10px;
     border-radius: 20px;
@@ -36,9 +39,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*padding-top: 200px*/
     background: url(/public/img/bg.jpeg) no-repeat;
-    background-size: 100%;
+    background-size: cover;
+    /*padding-top: 200px*/
+    
     height: 100vh;
 }
 .clearfix:after {

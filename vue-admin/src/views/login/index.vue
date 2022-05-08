@@ -1,6 +1,6 @@
 <template>
     <div>
-        <user-form title="用户登录" width="30%" height="360px">
+        <user-form title="用户登录" width="30%" height="380px">
             <el-form ref="form" :model="form">
                 <el-form-item>
                     <el-input placeholder="请输入账号" v-model="form.account">
@@ -14,7 +14,7 @@
                 </el-form-item>
                 <el-button type="text" @click="toRegister" style="transform: translateY(-10px)">还未注册 ？立即前往</el-button>
                 <el-form-item>
-                    <el-button type="primary" class="button">登录</el-button>
+                    <el-button type="primary" class="button" @click="login">登录</el-button>
                 </el-form-item>
             </el-form>
         </user-form>

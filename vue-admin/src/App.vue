@@ -13,6 +13,7 @@ export default {
 html, body {
     margin: 0;
     padding: 0;
+    background-color: #E9EEF3;
 }
 #app {
     height: 100vh;

@@ -2,10 +2,16 @@
     <div>
         <el-container style="height: 100%">
             <el-aside width="auto">
-                <aside-menu></aside-menu>
+                <aside-menu :isCollapse="isFold"></aside-menu>
             </el-aside>
             <el-container>
-                <el-header></el-header>
+                <el-header>
+                    <div>
+                        <el-button size="mini" icon="el-icon-s-fold" v-show="!isFold" @click="clickToFold"></el-button>
+                        <el-button size="mini" icon="el-icon-s-unfold" v-show="isFold" @click="clickToUnfold"></el-button>
+                    </div>
+                    <el-avatar icon="el-icon-user-solid"></el-avatar>
+                </el-header>
                 <el-main>
                     <router-view />
                 </el-main>
@@ -18,19 +24,26 @@
 
 <style lang="scss" scoped>
 .el-header {
+    margin: 10px 20px 0 20px;
     background-color: #333;
-    
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
 .el-aside {
-    background-color: #D3DCE6;
-
+    background-color: #E9EEF3;
+    padding: 10px;
 }
-
 .el-main {
     background-color: #E9EEF3;
 }
-
+.el-button ::v-deep .el-icon-s-fold {
+    font-size: 18px;
+}
+.el-button ::v-deep .el-icon-s-unfold {
+    font-size: 18px;
+}
 //.el-container {
 //    margin-bottom: 40px;
 //}

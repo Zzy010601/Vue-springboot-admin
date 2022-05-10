@@ -7,11 +7,26 @@
         active-text-color="#ffd04b"
         @open="handleOpen"
         @close="handleClose"
-        :collapse="isCollapse">
-        <div  class="title">
-            <h3>课程社区系统</h3>
+        :collapse="isCollapse"
+    >
+        <div style="display: flex; ">
+            <el-avatar size="large" icon="el-icon-eleme"></el-avatar>
+            <h3 v-show="!isCollapse">课程社区系统</h3>
+            
         </div>
-        <el-menu-item v-for="item in menu" :key="item.path" :index="item.id" @click="handleClick(item.path)" >
+<!--        <div v-show="isCollapse" style="height:56px"></div>-->
+        
+        <el-submenu index="1" style="border-radius: 20px">
+            <template slot="title">
+                <i class="el-icon-s-tools"></i>
+                <span>系统管理</span>
+            </template>
+            <el-menu-item v-for="item in systemMenu" :key="item.path" :index="item.id" @click="handleClick(item.path)">
+                <i :class="'el-icon-' + item.icon"></i>
+                <span>{{ item.title }}</span>
+            </el-menu-item>
+        </el-submenu>
+        <el-menu-item index="2" v-for="item in menu" :key="item.path" :index="item.id" @click="handleClick(item.path)" >
             <i :class="'el-icon-' + item.icon"></i>
             <span slot="title">{{ item.title }}</span>
         </el-menu-item>
@@ -21,10 +36,21 @@
 <script>
 export default {
     name: "index",
+    props: {
+        isCollapse: Boolean
+    },
     data() {
         return {
-            isCollapse: false,
+            systemMenu: [
+                {
+                    id: '1-1',
+                    icon: 's-custom',
+                    path: '/userManage',
+                    title: '用户管理'
+                },
+            ],
             menu: [
+                
                 {
                     id: '1',
                     icon: 'document-copy',
@@ -39,7 +65,7 @@ export default {
                 },
                 {
                     id: '3',
-                    icon: 'user',
+                    icon: 'user-solid',
                     path: '/personalInformation',
                     title: '个人信息',
                 },
@@ -49,15 +75,16 @@ export default {
                     path: '/courseBBS',
                     title: '课程论坛'
                 }
-            ]
+            ],
+            
         };
     },
     methods: {
         handleOpen(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
         handleClose(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
         handleClick(path) {
             if (path !== window.location.pathname) {
@@ -71,16 +98,27 @@ export default {
 <style lang="scss" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
-    min-height: 100vh;
+    min-height: calc(100vh - 20px);
+}
+.el-menu--collapse {
+    min-height: calc(100vh - 20px);
+    
 }
 .el-menu {
     height: 100%;
     border: none;
+    border-radius: 20px;
+    box-shadow: 5px 12px 15px -10px black;
     h3 {
         color: #fff;
         text-align: center;
         line-height: 48px;
-        margin: 10px auto;
+        margin: 10px 26px 10px 0;
+        
     }
+}
+.el-avatar--large {
+    background-color: #409EFF;
+    margin: 14px auto 8px;
 }
 </style>

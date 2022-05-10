@@ -17,6 +17,14 @@ const routes = [
         component: () => import('../views/layout/index'),
         children: [
             {
+                path: '/userManage',
+                name: 'userManage',
+                meta: {
+                    title: '用户管理'
+                },
+                component: () => import('../views/userManage/index')
+            },
+            {
                 path: '/courseManage',
                 name: 'courseManage',
                 meta: {

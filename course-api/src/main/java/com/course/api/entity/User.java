@@ -13,6 +13,7 @@ public class User {
     private String username;
     private String account;
     private String password;
+    private boolean sex;
     private String cell;
     private String email;
     private int userType;

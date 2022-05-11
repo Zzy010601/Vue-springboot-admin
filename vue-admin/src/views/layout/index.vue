@@ -37,6 +37,7 @@
 }
 .el-main {
     background-color: #E9EEF3;
+    
 }
 .el-button ::v-deep .el-icon-s-fold {
     font-size: 18px;

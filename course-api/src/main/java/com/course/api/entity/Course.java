@@ -13,4 +13,6 @@ public class Course {
     private String courseName;
     private Long teacherId;
     private String studentIds;
+    private int totalNumber;
+    private int selectedNumber;
 }

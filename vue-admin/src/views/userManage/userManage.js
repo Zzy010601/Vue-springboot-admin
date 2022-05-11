@@ -1,5 +1,4 @@
-import userManageApi from '@/views/api/user/userManage'
-// import request from "@/utils/request";
+import userManageApi from "@/views/api/user/userManage";
 
 export default {
     data() {
@@ -10,6 +9,7 @@ export default {
             dialogFormVisible: false,
             formLabelWidth: '100px',
             isAdd: false,
+            currentRow: '',
             form: {
                 username: '',
                 account: '',
@@ -18,12 +18,13 @@ export default {
                 cell: '',
                 email: '',
                 userType: '',
-                isAdmin: '',
+                admin: '',
             },
             listQuery: {
                 page: 1,
                 pageSize: 5,
-                username: undefined
+                username: undefined,
+                userType: undefined,
             },
             total: 0,
             sex: [{
@@ -34,13 +35,15 @@ export default {
                 label: '女'
             }],
             userType: [{
-                    id: 1,
-                    type: '教师'
-                }, {
-                    id: 2,
-                    type: '学生'
-                }
-            ],
+                id: 0,
+                type: '超级管理员'
+            }, {
+                id: 1,
+                type: '教师'
+            }, {
+                id: 2,
+                type: '学生'
+            }],
             isAdmin: [{
                 value: true,
                 label: '管理员',
@@ -79,23 +82,71 @@ export default {
         },
         add() {
             this.isAdd = true
+            this.resetForm()
             this.dialogFormVisible = true
         },
-        edit() {
-            this.isAdd = false
-            this.dialogFormVisible = true
+        resetForm() {
+            for (let item of Object.keys(this.form)) {
+                this.form[item] = ''
+            }
+        },
+        remove(row) {
+            if (row === '') {
+                this.$message({
+                    message: '请选择要删除的数据',
+                    type: 'warning'
+                })
+            } else {
+                this.$confirm('您确定要删除这条数据吗？').then(() => {
+                    userManageApi.remove(row).then(() => {
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        })
+                        this.fetchData()
+                    })
+                })
+            }
+        },
+        edit(row) {
+            if (row === '') {
+                this.$message({
+                    message: '请选择所要编辑的数据',
+                    type: 'warning'
+                })
+            } else {
+                this.form = this.userList.find(item => item.id === row.id)
+                this.isAdd = false
+                this.dialogFormVisible = true
+            }
+
         },
         search() {
             this.fetchData()
         },
         reset() {
             this.listQuery.username = ''
+            this.listQuery.userType = ''
             this.fetchData()
         },
         save() {
             if (this.isAdd) {
+                console.log(this.form)
                 // 添加
                 userManageApi.add(this.form).then(() => {
+                    this.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    })
+                    this.fetchData()
+                }).catch(() => {
+                    this.$message({
+                        message: '添加失败',
+                        type: 'error'
+                    })
+                })
+            } else {
+                userManageApi.update(this.form).then(() => {
                     this.$message({
                         message: '添加成功',
                         type: 'success'
@@ -127,6 +178,7 @@ export default {
             this.fetchData()
         },
         handleCurrentChange(currentRow, oldCurrentRow) {
+            this.currentRow = currentRow;
         }
     }
 }

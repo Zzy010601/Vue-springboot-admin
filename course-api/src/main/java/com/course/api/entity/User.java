@@ -18,4 +18,5 @@ public class User {
     private String email;
     private int userType;
     private boolean isAdmin;
+    private String courseIds;
 }

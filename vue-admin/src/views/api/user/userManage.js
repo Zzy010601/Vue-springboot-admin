@@ -1,32 +1,40 @@
 import request from "@/utils/request";
 
 export default {
-    getUserList: function(params) {
+    getUserList: (params) => {
         return request ({
             url: '/user/getUserList',
             methods: 'get',
             params
         })
     },
-    add: function(params) {
-        return request({
-            url: '/user/add',
-            methods: 'post',
-            params
-        })
+    add: (params) => {
+        return request.post('/user/add', params)
     },
-    update: function(params) {
-        return request({
-            url: '/user/update',
-            methods: 'put',
-            params
-        })
+    update: (params) => {
+        return request.put('/user/update', params)
     },
-    remove: function(params) {
-        return request({
-            url: '/user/remove',
-            methods: 'delete',
-            params
-        })
+    remove: (id) => {
+        return request.delete('/user/delete', id)
+
     }
 }
+// export const getUserList = (params) => {
+//     return request.get('/user/getUserList', params)
+// }
+// export const add = (params) => {
+//     return request.post('/user/add', params)
+// }
+// export function getUserList(params) {
+//     return request ({
+//         url: '/user/getUserList',
+//         methods: 'get',
+//         params
+//     })
+// }
+// export const update = (params) => {
+//     return request.put('/user/update', params)
+// }
+// export const remove = (id) => {
+//     return request.delete('/user/delete', id)
+// }

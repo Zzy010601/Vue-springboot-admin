@@ -1,9 +1,19 @@
 <template>
     <div>
-        <el-card class="main-header" shadow="never">
-            <el-row>
-                <el-col :span="6">
+        <el-card shadow="never">
+            <el-row :gutter="20">
+                <el-col :span="4">
                     <el-input v-model="listQuery.username" size="medium" placeholder="请输入姓名"></el-input>
+                </el-col>
+                <el-col :span="4">
+                    <el-select v-model="listQuery.userType" size="medium" placeholder="请选择用户类型" style="width: 100%;">
+                        <el-option
+                            v-for="item in userType"
+                            :key="item.type"
+                            :label="item.type"
+                            :value="item.id">
+                        </el-option>
+                    </el-select>
                 </el-col>
                 <el-col :span="6" class="col">
                     <el-tooltip class="item" effect="dark" content="搜索" placement="top">
@@ -16,13 +26,15 @@
                 <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
             </el-row>
         </el-card>
-        <el-row style="margin-bottom: 10px;">
+        
+        <el-row class="btnRow">
             <el-col :span="24" class="colButton">
-                <el-button type="success" icon="el-icon-plus" size="medium" @click.native="add" round>添加</el-button>
-                <el-button type="info" icon="el-icon-edit" size="medium"  @click.native="edit" round>修改</el-button>
-                <el-button type="danger" icon="el-icon-delete" size="medium" round>删除</el-button>
+                <el-button type="success" icon="el-icon-plus" size="medium" @click.native="add" circle></el-button>
+                <el-button type="info" icon="el-icon-edit" size="medium"  @click.native="edit(currentRow)" circle></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="medium" @click.native="remove(currentRow)" circle></el-button>
             </el-col>
         </el-row>
+        
         <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" highlight-current-row @current-change="handleCurrentChange">
             <el-table-column prop="date" label="用户姓名">
                 <template slot-scope="scope">
@@ -44,6 +56,11 @@
                     {{scope.row.cell}}
                 </template>
             </el-table-column>
+            <el-table-column prop="date" label="邮箱">
+                <template slot-scope="scope">
+                    {{scope.row.email}}
+                </template>
+            </el-table-column>
             <el-table-column prop="date" label="用户类型">
                 <template slot-scope="scope">
                     {{scope.row.userType}}
@@ -57,7 +74,14 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button type="text" size="mini" icon="el-icon-edit" @click.native="edit(scope.row)">编辑</el-button>
-                    <el-button type="text" size="mini" icon="el-icon-delete" @click.native="remove(scope.row)">删除</el-button>
+                    <el-button
+                        slot="reference"
+                        type="text"
+                        size="mini"
+                        icon="el-icon-delete"
+                        @click.native="remove(scope.row)"
+                        style="margin-left: 10px;"
+                    >删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -67,7 +91,7 @@
             background
             layout="total, sizes, prev, pager, next, jumper"
             :page-sizes="[5, 10, 20, 50, 100,500]"
-            :page-size="listQuery.limit"
+            :page-size="listQuery.pageSize"
             :total="total"
             @size-change="changeSize"
             @current-change="fetchPage"
@@ -109,15 +133,27 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="11">
-                        <el-form-item label="性别" :label-width="formLabelWidth">
-                            <el-radio v-model="form.userType" v-for="item in userType" :label="item.id" :key="item.type" border>{{ item.type }}</el-radio>
+                        <el-form-item label="邮箱" :label-width="formLabelWidth">
+                            <el-input v-model="form.email" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="11">
+                        <el-form-item label="用户类型" :label-width="formLabelWidth">
+                            <el-select v-model="form.userType" placeholder="请选择用户类型" :label-width="formLabelWidth">
+                                <el-option
+                                    v-for="item in userType"
+                                    :key="item.type"
+                                    :label="item.type"
+                                    :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="11">
                         <el-form-item label="是否是管理员" :label-width="formLabelWidth">
-                            <el-select v-model="form.isAdmin" placeholder="请选择" style="width: 100%">
+                            <el-select v-model="form.admin" placeholder="请选择" style="width: 100%">
                                 <el-option
                                     v-for="item in isAdmin"
                                     :key="item.value"
@@ -140,38 +176,8 @@
 <script src="./userManage.js"></script>
 
 <style lang="scss" scoped>
-.main-header {
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 20px;
-}
-.main-header:hover {
-    box-shadow: 5px 6px 15px -10px black
-}
-.el-table {
-    width: 100%;
-    border-radius: 20px;
-    padding: 0 10px;
-}
-.el-table:hover {
-    box-shadow: 5px 6px 15px -10px black
-}
-.col {
-    margin-left: 20px;
-}
-.colButton {
-    .el-button:hover {
-        box-shadow: 5px 6px 15px -10px black
-    }
-}
-.dialog-footer {
-    display: flex;
-    justify-content: center
-}
+    @import "src/style/common.scss";
 .el-radio {
     width: 43.7%;
-}
-.el-pagination {
-    margin-top: 10px;
 }
 </style>

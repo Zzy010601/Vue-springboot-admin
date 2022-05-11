@@ -1,0 +1,35 @@
+.el-card {
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.main-header:hover {
+  box-shadow: 5px 6px 15px -10px black
+}
+.btnRow {
+  margin-bottom: 10px;
+}
+.el-table {
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 10px;
+}
+.el-table:hover {
+  box-shadow: 5px 6px 15px -10px black
+}
+.col {
+  margin-left: 20px;
+}
+.colButton {
+  .el-button:hover {
+    box-shadow: 5px 6px 15px -10px black
+  }
+}
+.dialog-footer {
+  display: flex;
+  justify-content: center
+}
+
+.el-pagination {
+  margin-top: 10px;
+}

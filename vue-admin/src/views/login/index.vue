@@ -1,14 +1,14 @@
 <template>
     <div>
         <user-form title="用户登录" width="30%" height="380px">
-            <el-form ref="form" :model="form">
-                <el-form-item>
-                    <el-input placeholder="请输入账号" v-model="form.account">
+            <el-form ref="form" :model="form" :rules="rules">
+                <el-form-item prop="account">
+                    <el-input placeholder="请输入账号" v-model="form.account" @keyup.enter.native="login">
                         <template slot="prepend">账号：</template>
                     </el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input placeholder="请输入密码" v-model="form.password" show-password>
+                <el-form-item prop="password">
+                    <el-input placeholder="请输入密码" v-model="form.password" @keyup.enter.native="login" show-password>
                         <template slot="prepend">密码：</template>
                     </el-input>
                 </el-form-item>

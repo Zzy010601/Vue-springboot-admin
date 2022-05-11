@@ -2,7 +2,6 @@ package com.course.api.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.course.api.entity.User;
 import com.course.api.mapper.UserMapper;
@@ -16,7 +15,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     UserMapper userMapper;
 
     @Override
-    public IPage<User> selectPage(IPage<User> page, Wrapper<User> userWrapper) {
-        return userMapper.selectPageVo(page, userWrapper);
+    public IPage<User> Page(IPage<User> userIPage, Wrapper<User> queryWrapper) {
+        return userMapper.selectPage(userIPage, queryWrapper);
     }
 }

@@ -1,5 +1,6 @@
 package com.course.api.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -11,6 +12,7 @@ import com.course.api.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 @ResponseBody
 @RestController
 @RequestMapping("/user")
@@ -19,10 +21,35 @@ public class UserController {
     UserServiceImpl userService;
 
     /**
+     * 用户登录
+     * @param user
+     * @return
+     */
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        String account = user.getAccount();
+        String password = user.getPassword();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("account", account);
+        User userVo = userService.getOne(queryWrapper);
+        // 登陆失败
+        if (userVo == null) {
+            return Results.failure("不存在此用户");
+        } else if (!userVo.getPassword().equals(password)) {
+            return Results.failure("账号密码输入错误");
+        }
+        //登陆成功
+        StpUtil.login(userVo.getId());
+        System.out.println(StpUtil.getTokenInfo());
+        return Results.success();
+    }
+
+    /**
      * 获取用户列表
      * @param page
      * @param pageSize
-     * @param
+     * @param username
+     * @param userType
      * @return
      */
     @GetMapping("/getUserList")
@@ -68,9 +95,19 @@ public class UserController {
      * @param id
      * @return
      */
-    @DeleteMapping("/delete")
-    public Result remove(Long id) {
+    @DeleteMapping("/delete/{id}")
+    public Result remove(@PathVariable("id") Long id) {
         if (userService.removeById(id)) return Results.success();
         else return Results.failure("删除失败");
+    }
+
+    /**
+     * 根据id获取老师信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/getTeacher")
+    public User getTeacher(@RequestParam Long id) {
+        return userService.getById(id);
     }
 }

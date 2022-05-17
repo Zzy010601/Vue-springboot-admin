@@ -25,12 +25,12 @@ const routes = [
                 component: () => import('../views/userManage/index')
             },
             {
-                path: '/courseManage',
-                name: 'courseManage',
+                path: '/joinCourse',
+                name: 'joinCourse',
                 meta: {
-                    title: '课程管理'
+                    title: '加入课程'
                 },
-                component: () => import('../views/course/courseManage/index')
+                component: () => import('../views/course/joinCourse/index')
             },
             {
                 path: '/courseBBS',

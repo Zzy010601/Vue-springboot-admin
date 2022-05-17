@@ -6,14 +6,14 @@
                     <el-input v-model="listQuery.courseName" size="medium" placeholder="请输入课程名称"></el-input>
                 </el-col>
                 <el-col :span="4">
-                    <el-select v-model="listQuery.teacherId" size="medium" placeholder="请选择任课老师" style="width: 100%;">
-                        <el-option
-                            v-for="item in userType"
-                            :key="item.type"
-                            :label="item.type"
-                            :value="item.id">
-                        </el-option>
-                    </el-select>
+<!--                    <el-select v-model="listQuery.teacherId" size="medium" placeholder="请选择任课老师" style="width: 100%;">-->
+<!--                        <el-option-->
+<!--                            v-for="item in tearcherList"-->
+<!--                            :key="item.type"-->
+<!--                            :label="item.type"-->
+<!--                            :value="item.id">-->
+<!--                        </el-option>-->
+<!--                    </el-select>-->
                 </el-col>
                 <el-col :span="6" class="col">
                     <el-tooltip class="item" effect="dark" content="搜索" placement="top">
@@ -30,8 +30,8 @@
         <el-row style="margin-bottom: 10px;">
             <el-col :span="24" class="colButton">
                 <el-button type="success" icon="el-icon-plus" size="medium" @click.native="add" circle></el-button>
-                <el-button type="info" icon="el-icon-edit" size="medium"  @click.native="edit(currentRow)" circle></el-button>
-                <el-button type="danger" icon="el-icon-delete" size="medium" @click.native="remove(currentRow)" circle></el-button>
+<!--                <el-button type="info" icon="el-icon-edit" size="medium"  @click.native="edit(currentRow)" circle></el-button>-->
+<!--                <el-button type="danger" icon="el-icon-delete" size="medium" @click.native="remove(currentRow)" circle></el-button>-->
             </el-col>
         </el-row>
         
@@ -58,15 +58,23 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="text" size="mini" icon="el-icon-edit" @click.native="edit(scope.row)">编辑</el-button>
                     <el-button
                         slot="reference"
                         type="text"
                         size="mini"
                         icon="el-icon-delete"
-                        @click.native="remove(scope.row)"
+                        @click.native="select(scope.row)"
                         style="margin-left: 10px;"
-                    >删除</el-button>
+                    >选课</el-button>
+<!--                    <el-button type="text" size="mini" icon="el-icon-edit" @click.native="edit(scope.row)">编辑</el-button>-->
+<!--                    <el-button-->
+<!--                        slot="reference"-->
+<!--                        type="text"-->
+<!--                        size="mini"-->
+<!--                        icon="el-icon-delete"-->
+<!--                        @click.native="remove(scope.row)"-->
+<!--                        style="margin-left: 10px;"-->
+<!--                    >删除</el-button>-->
                 </template>
             </el-table-column>
         </el-table>
@@ -86,7 +94,7 @@
     </div>
 </template>
 
-<script src="./courseManage.js"></script>
+<script src="./joinCourse.js"></script>
 
 <style lang="scss" scoped>
     @import "src/style/common.scss";

@@ -1,11 +1,12 @@
 # vue-admin
 
-## Project setup
+### 依赖安装
+####在当前目录vue-admin下使用命令安装依赖
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 前端项目运行命令
 ```
 npm run serve
 ```

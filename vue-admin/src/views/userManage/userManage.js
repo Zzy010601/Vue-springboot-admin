@@ -20,13 +20,18 @@ export default {
                 userType: '',
                 admin: '',
             },
+            pageParams: {
+                current: '',
+                pages: '',
+                size: '',
+                total: 0,
+            },
             listQuery: {
                 page: 1,
                 pageSize: 5,
                 username: undefined,
                 userType: undefined,
             },
-            total: 0,
             sex: [{
                 value: true,
                 label: '男'
@@ -64,6 +69,9 @@ export default {
             this.listLoading = true
             // 调取后端接口获取用户列表
             userManageApi.getUserList(this.listQuery).then(response => {
+                this.pageParams.current = response.data.current
+                this.pageParams.pages = response.data.pages
+                this.pageParams.size = response.data.size
                 this.userList = response.data.records;
                 this.list = this.userList.map(item => {
                     let data = JSON.parse(JSON.stringify(item))
@@ -77,7 +85,7 @@ export default {
                     return data;
                 })
                 this.listLoading = false
-                this.total = response.data.total
+                this.pageParams.total = response.data.total
             })
         },
         add() {
@@ -91,6 +99,7 @@ export default {
             }
         },
         remove(row) {
+            console.log(row)
             if (row === '') {
                 this.$message({
                     message: '请选择要删除的数据',
@@ -98,11 +107,14 @@ export default {
                 })
             } else {
                 this.$confirm('您确定要删除这条数据吗？').then(() => {
-                    userManageApi.remove(row).then(() => {
+                    userManageApi.remove(row.id).then(() => {
                         this.$message({
                             message: '删除成功',
                             type: 'success'
                         })
+                        if (this.pageParams.current === this.pageParams.pages && this.pageParams.total % this.pageParams.size === 1){
+                            this.listQuery.page--
+                        }
                         this.fetchData()
                     })
                 })

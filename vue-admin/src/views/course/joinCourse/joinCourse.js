@@ -1,4 +1,4 @@
-import courseManageApi from "@/views/api/course/courseManage";
+import courseApi from "@/views/api/course/course";
 
 export default {
     data() {
@@ -16,11 +16,6 @@ export default {
                 courseName: undefined,
                 teacherId: undefined
             },
-            form: {
-                courseName: '',
-                teacherId: '',
-                totalNumber: '',
-            }
         }
     },
     created() {
@@ -31,7 +26,16 @@ export default {
             this.fetchData()
         },
         fetchData() {
-
+            this.listLoading = true
+            courseApi.getCourseList(this.listQuery).then(response => {
+                this.couseList = response.data.records
+                this.list = this.couseList.map(item => {
+                    let data = JSON.parse(JSON.stringify(item))
+                    return data
+                })
+                this.listLoading = false
+                this.total = response.data.total
+            })
         },
         add() {
             this.isAdd = true
@@ -51,7 +55,7 @@ export default {
                 })
             } else {
                 this.$confirm('您确定要删除这条数据吗？').then(() => {
-                    userManageApi.remove(row).then(() => {
+                    courseApi.remove(row).then(() => {
                         this.$message({
                             message: '删除成功',
                             type: 'success'
@@ -86,7 +90,7 @@ export default {
             if (this.isAdd) {
                 console.log(this.form)
                 // 添加
-                courseManageApi.add(this.form).then(() => {
+                courseApi.add(this.form).then(() => {
                     this.$message({
                         message: '添加成功',
                         type: 'success'
@@ -99,7 +103,7 @@ export default {
                     })
                 })
             } else {
-                courseManageApi.update(this.form).then(() => {
+                courseApi.update(this.form).then(() => {
                     this.$message({
                         message: '添加成功',
                         type: 'success'
@@ -115,7 +119,7 @@ export default {
             this.dialogFormVisible = false
         },
         changeSize(limit) {
-            this.listQuery.limit = limit
+            this.listQuery.pageSize = limit
             this.fetchData()
         },
         fetchPage(page) {

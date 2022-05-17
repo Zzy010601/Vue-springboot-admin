@@ -54,8 +54,8 @@ export default {
                 {
                     id: '1',
                     icon: 'document-copy',
-                    path: '/courseManage',
-                    title: '课程管理',
+                    path: '/joinCourse',
+                    title: '加入课程',
                 },
                 {
                     id: '2',

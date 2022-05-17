@@ -19,4 +19,5 @@ public class User {
     private int userType;
     private boolean isAdmin;
     private String courseIds;
+    private String imageUrl;
 }

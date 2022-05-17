@@ -10,7 +10,15 @@
                         <el-button size="mini" icon="el-icon-s-fold" v-show="!isFold" @click="clickToFold"></el-button>
                         <el-button size="mini" icon="el-icon-s-unfold" v-show="isFold" @click="clickToUnfold"></el-button>
                     </div>
-                    <el-avatar icon="el-icon-user-solid"></el-avatar>
+                    <el-upload
+                        class="avatar-uploader"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <el-avatar v-if="imageUrl" :src="imageUrl" fit="fill"></el-avatar>
+                        <el-avatar v-else icon="el-icon-user-solid"></el-avatar>
+                    </el-upload>
                 </el-header>
                 <el-main>
                     <router-view />
@@ -37,7 +45,7 @@
 }
 .el-main {
     background-color: #E9EEF3;
-    
+    padding-bottom: 10px;
 }
 .el-button ::v-deep .el-icon-s-fold {
     font-size: 18px;

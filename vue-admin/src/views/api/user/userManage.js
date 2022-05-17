@@ -1,40 +1,51 @@
 import request from "@/utils/request";
 
-export default {
+export default  {
     getUserList: (params) => {
-        return request ({
+        return request({
             url: '/user/getUserList',
-            methods: 'get',
+            method: 'get',
             params
         })
     },
     add: (params) => {
-        return request.post('/user/add', params)
+        return request({
+            url: '/user/add',
+            method: 'post',
+            data: params
+        })
     },
     update: (params) => {
-        return request.put('/user/update', params)
+        return request({
+            url: '/user/update',
+            method: 'put',
+            data: params
+        })
     },
     remove: (id) => {
-        return request.delete('/user/delete', id)
-
+        return request({
+            url: '/user/delete/' + id,
+            method: 'delete',
+        })
+    },
+    login: (params) => {
+        return request({
+            url: '/user/login',
+            method: 'post',
+            data: params
+        })
     }
+    // getUserList: (params) => {
+    //     return request.get('/user/getUserList', { params })
+    // },
+    // add: (params) => {
+    //     return request.post('/user/add', params)
+    // update: (params) => {
+    //     return request.put('/user/update',  params)
+    // },
+    // remove: (id) => {
+    //     return request.delete('/user/delete/' + id)
+    // },
 }
-// export const getUserList = (params) => {
-//     return request.get('/user/getUserList', params)
-// }
-// export const add = (params) => {
-//     return request.post('/user/add', params)
-// }
-// export function getUserList(params) {
-//     return request ({
-//         url: '/user/getUserList',
-//         methods: 'get',
-//         params
-//     })
-// }
-// export const update = (params) => {
-//     return request.put('/user/update', params)
-// }
-// export const remove = (id) => {
-//     return request.delete('/user/delete', id)
-// }
+
+

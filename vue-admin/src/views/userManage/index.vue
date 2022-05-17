@@ -92,7 +92,7 @@
             layout="total, sizes, prev, pager, next, jumper"
             :page-sizes="[5, 10, 20, 50, 100,500]"
             :page-size="listQuery.pageSize"
-            :total="total"
+            :total="pageParams.total"
             @size-change="changeSize"
             @current-change="fetchPage"
             @prev-click="fetchPrev"
@@ -100,48 +100,48 @@
         </el-pagination>
     
     
-        <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
+        <el-dialog title="添加用户" :visible.sync="dialogFormVisible" width="60% ">
             <el-form :model="form">
                 <el-row>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="姓名" :label-width="formLabelWidth">
                             <el-input v-model="form.username" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="账号" :label-width="formLabelWidth">
                             <el-input v-model="form.account" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="密码" :label-width="formLabelWidth">
                             <el-input v-model="form.password" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="手机号" :label-width="formLabelWidth">
                             <el-input v-model="form.cell" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="性别" :label-width="formLabelWidth">
                             <el-radio v-model="form.sex" v-for="item in sex" :label="item.value" :key="item.label" border>{{ item.label }}</el-radio>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="邮箱" :label-width="formLabelWidth">
                             <el-input v-model="form.email" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="用户类型" :label-width="formLabelWidth">
-                            <el-select v-model="form.userType" placeholder="请选择用户类型" :label-width="formLabelWidth">
+                            <el-select v-model="form.userType" placeholder="请选择用户类型" :label-width="formLabelWidth" style="width: 100%">
                                 <el-option
                                     v-for="item in userType"
                                     :key="item.type"
@@ -151,7 +151,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <el-form-item label="是否是管理员" :label-width="formLabelWidth">
                             <el-select v-model="form.admin" placeholder="请选择" style="width: 100%">
                                 <el-option
@@ -176,8 +176,12 @@
 <script src="./userManage.js"></script>
 
 <style lang="scss" scoped>
-    @import "src/style/common.scss";
+@import "src/style/common.scss";
 .el-radio {
-    width: 43.7%;
+    width: 44.5%;
+}
+.el-row {
+    display: flex;
+    justify-content: space-around;
 }
 </style>

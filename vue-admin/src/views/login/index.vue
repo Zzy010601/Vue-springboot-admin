@@ -14,7 +14,7 @@
                 </el-form-item>
                 <el-button type="text" @click="toRegister" style="transform: translateY(-10px)">还未注册 ？立即前往</el-button>
                 <el-form-item>
-                    <el-button type="primary" class="button" @click="login">登录</el-button>
+                    <el-button :loading="loading" type="primary" class="button" @click="login">登录</el-button>
                 </el-form-item>
             </el-form>
         </user-form>

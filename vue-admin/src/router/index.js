@@ -9,7 +9,7 @@ const routes = [
         redirect: '/login'
     },
     {
-        path: '/layout',
+        path: '/redirect',
         name: 'system',
         meta: {
             title: 'system'

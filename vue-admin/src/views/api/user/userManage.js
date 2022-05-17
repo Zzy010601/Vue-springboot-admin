@@ -28,13 +28,6 @@ export default  {
             method: 'delete',
         })
     },
-    login: (params) => {
-        return request({
-            url: '/user/login',
-            method: 'post',
-            data: params
-        })
-    }
     // getUserList: (params) => {
     //     return request.get('/user/getUserList', { params })
     // },

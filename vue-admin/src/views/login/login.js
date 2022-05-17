@@ -1,6 +1,7 @@
 import userForm from '@/components/UserForm';
 import fa from "element-ui/src/locale/lang/fa";
 
+
 export default {
     components: {
         'user-form': userForm
@@ -11,6 +12,7 @@ export default {
                 account: '',
                 password: '',
             },
+            loading: false
         }
     },
     computed: {
@@ -32,7 +34,13 @@ export default {
         login() {
             this.$refs['form'].validate(valid => {
                 if (valid) {
-                    this.$router.push('/layout')
+                    this.loading = true
+                    this.$store.dispatch('user/login', this.form).then(response => {
+                        this.loading = false
+                        this.$router.push('/redirect')
+                    }).catch(error => {
+                        this.loading = false
+                    })
                 } else {
                     return false
                 }

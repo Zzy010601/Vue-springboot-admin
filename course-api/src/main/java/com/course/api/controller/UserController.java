@@ -29,6 +29,7 @@ public class UserController {
     public Result login(@RequestBody User user) {
         String account = user.getAccount();
         String password = user.getPassword();
+        System.out.println(account);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", account);
         User userVo = userService.getOne(queryWrapper);

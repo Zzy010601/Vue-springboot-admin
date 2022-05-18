@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        redirect: '/login'
+        redirect: '/layout'
     },
     {
-        path: '/redirect',
+        path: '/layout',
         name: 'system',
         meta: {
             title: 'system'
@@ -82,9 +83,22 @@ const router = new VueRouter({
     routes
 })
 
+const NO_NEED = ['/login', '/register']
+
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
-    next();
+    if (NO_NEED.includes(to.path)) {
+        next()
+    } else {
+        let token = store.state.token;
+        if (token === null || token === '') {
+            to.path = '/login'
+            next()
+            console.log(token)
+        } else {
+            next()
+        }
+    }
 })
 
 export default router

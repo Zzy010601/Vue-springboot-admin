@@ -37,7 +37,7 @@ export default {
                     this.loading = true
                     this.$store.dispatch('user/login', this.form).then(response => {
                         this.loading = false
-                        this.$router.push('/redirect')
+                        this.$router.push('/layout')
                     }).catch(error => {
                         this.loading = false
                     })

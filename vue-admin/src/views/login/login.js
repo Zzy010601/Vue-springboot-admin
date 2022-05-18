@@ -1,6 +1,5 @@
 import userForm from '@/components/UserForm';
-import fa from "element-ui/src/locale/lang/fa";
-
+import { getToken } from '@/utils/cookiesTool'
 
 export default {
     components: {
@@ -37,6 +36,7 @@ export default {
                     this.loading = true
                     this.$store.dispatch('user/login', this.form).then(response => {
                         this.loading = false
+                        // localStorage.setItem('token', getToken())
                         this.$router.push('/layout')
                     }).catch(error => {
                         this.loading = false

@@ -5,10 +5,10 @@ import store from '@/store'
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/',
-        redirect: '/layout'
-    },
+    // {
+    //     path: '/',
+    //     redirect: '/layout'
+    // },
     {
         path: '/layout',
         name: 'system',
@@ -90,10 +90,9 @@ router.beforeEach((to, from, next) => {
     if (NO_NEED.includes(to.path)) {
         next()
     } else {
-        let token = store.state.token;
+        let token = localStorage.getItem('token');
         if (token === null || token === '') {
-            to.path = '/login'
-            next()
+            next('/login')
             console.log(token)
         } else {
             next()
